@@ -1,11 +1,15 @@
-const http = require("http");
+const express = require("express");
 
-function createServer_callback(req, res) {
-  /* Http header를 전송한다. */
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Hello body");
-}
+const app = express();
 
-http.createServer(createServer_callback).listen(8081);
+app.set("views", __dirname + "/views");
+app.set("view engine", "ejs");
+app.engine("html", require("ejs").renderFile);
 
-console.log("Server started");
+app.use(express.static(__dirname + "/public"));
+
+app.listen(3000, () => {
+  console.log("Hi");
+});
+
+module.exports = app;
